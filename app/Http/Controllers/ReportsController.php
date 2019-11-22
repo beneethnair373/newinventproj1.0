@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use PhpOffice\PhpWord\TemplateProcessor;
 use Illuminate\Http\Request;
+use App\Project;
+use App\Report;
 
 class ReportsController extends Controller
 {
@@ -32,28 +34,4 @@ class ReportsController extends Controller
 
 		return response()->download('form138.xlsx');
     }
-
-    public function create(Project $project)
-    {
-        $project = Project::first();
-        $tasks = Task::all();
-        return view('tasks.create', compact('tasks', 'project'));
-    }
-
-    public function store(Project $project)
-    {
-        $task = $project->inventory()->create([
-            'title' => request()->title,
-            'inventory_id' => request()->inventory_id
-        ]);
-        return $task;
-    }
-
-    public function delete(Task $task)
-    {
-        //delete the task
-        $task->delete();
-        ret
-
- 
 }

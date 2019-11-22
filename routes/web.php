@@ -14,9 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/tasks/create', 'ReportsController@create');
+Route::get('/tasks/create', 'TasksController@create');
 Route::post('/projects/{project}/tasks', 'TasksController@store');
-Route::post('/tasks/{task}/delete', 'TasksController@delete');
 
 Route::get('/word', 'ReportsController@word');
 Route::get('/excel', 'ReportsController@excel');

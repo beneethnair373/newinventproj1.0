@@ -27,17 +27,17 @@
   </div>
   <div class="form-group">
     <label for="name">Quantity</label>
-    <input type="text" class="form-control" id="Name">
+    <input type="number" class="form-control" id="Quantity">
   </div>
-  <div class="form-group">
+  <div class="form-group" >
   <label for="sel1">Category</label>
-  <select class="form-control" id="sel1">
+  <select class="form-control" id="sel1" name="Category">
     <option class="dropdown-item" href="#">Equipment</option>
     <option class="dropdown-item" href="#">Utensils</option>
   </select>
 </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" v-on:click='postNewTask'>Save changes</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
@@ -56,6 +56,7 @@
     </tr>
   </thead>
 </table>
+<li class="list-group-item" v-for='item in items'>@{{ task.title }}</li>
 </div>
 @endsection
 
@@ -63,12 +64,15 @@
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script>
+    // @json($php-var);
+    //    var items= @json($items);
        var vm = new Vue({
       el:'#app',
       data:{
-        items:items,
-        add_item: {
-          inventory_id: 1,
+        tasks: tasks,
+        project: project,
+        new_task: {
+          task_category_id: 1,
           title:'',
         }
       },
@@ -79,13 +83,6 @@
               this.tasks.push(data);
               this.new_task.title = '';
               console.log(data);
-            });
-        },
-        deleteTask(task) {
-          axios.post('/tasks/'+task.id+'/delete')
-            .then(function(response){
-              var index = vm.tasks.indexOf(task);
-              vm.tasks.splice(index, 1);
             });
         }
       }
